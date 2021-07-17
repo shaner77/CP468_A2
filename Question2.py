@@ -15,7 +15,7 @@ try:
                 plt.scatter(float(a[0]), float(a[1]))
                 print(a)
                 line_count += 1
-        print(f'Processed {line_count} lines.')
+        print(f'There Are {line_count-1} Data Entries.')
     plt.show()
 except:
     print("something broke")
