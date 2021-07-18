@@ -2,22 +2,22 @@ import csv
 import matplotlib.pyplot as plt
 import math
 
+
+
 def main():
     
-    centroid1 = [20.0, 10.0]        #arbitrary initial values for the centroids
-    centroid2 = [60.0, 10.0]
+    #probably add an outer loop here so that when kmean is calculated outside file processing it can be used again above
+    #I think we should create a function to open file, read contents, convert to float, and then add it's [f1,f2] to a list
+    centroid1 = [30.0, 50.0]
+    centroid2 = [60.0, 50.0]
     #old1 = centroid1
     #old2 = centroid1
-    mean1x = 0
+    mean1x = 0.0
     mean1y = 0
     mean2x = 0
     mean2y = 0
     redcount = 0
     blkcount = 0
-    
-    #probably add an outer loop here so that when kmean is calculated outside file processing it can be used again above '''
-    #I think we should create a function to open file, read contents, convert to float, and then add it's [f1,f2] to a list
-    
     try:
         
         with open('datasetQ2.csv', mode='r') as csv_file:
@@ -26,6 +26,8 @@ def main():
             
             for row in csv_reader:
                 line = ','.join(row)
+                plt.scatter(float(centroid1[0]), float(centroid1[1]), color="blue")
+                plt.scatter(float(centroid2[0]), float(centroid2[1]), color="blue")
                 if line_count == 0:
                     print(f'Features:\n {"  ,  ".join(row)}')
                     line_count += 1
@@ -40,24 +42,26 @@ def main():
                         redcount += 1
                         mean1x += float(a[0])
                         mean1y += float(a[1])
-                                         
+                        #oldcentR = centroid1
+                        
                     else:
                         
                         plt.scatter(float(a[0]), float(a[1]), color="black")
                         blkcount += 1
                         mean2x += float(a[0])
                         mean2y += float(a[1])
-
+                        #oldcentB = centroid2
+                    #B[line_count][2] = [float(a[0]), float([1])]
                     print(a)
                     line_count += 1
                 
                
             print(f'There Are {line_count-1} Data Points.')
             plt.show()
+            
     except:
-        print("something broke")
-        
-        
+        print(" Make sure you are calling index values with float() ")
+
 #===================================================================
 # We need to implement something like this to check if centroids are the same.
 # While the euclidean check runs, add up mean x and y, calculate new centroid after.
@@ -71,7 +75,6 @@ def main():
 #     print("below")
 #===================================================================
 
-
 def euclid(cent, A):
     print(f'(x) centroid: {cent[0]} A: {A[0]}')
     print(f'(y) centroid: {cent[1]} A: {A[1]}')
@@ -79,5 +82,4 @@ def euclid(cent, A):
     y = ((float(A[1]) - cent[1])**2)
     print(f'euclid: {math.sqrt(x+y)}')
     return math.sqrt(x+y)
-
 main()
