@@ -4,7 +4,7 @@ import math
 
 def main():
     
-    centroid1 = [20.0, 10.0]
+    centroid1 = [20.0, 10.0]        #arbitrary initial values for the centroids
     centroid2 = [60.0, 10.0]
     #old1 = centroid1
     #old2 = centroid1
