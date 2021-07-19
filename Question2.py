@@ -13,6 +13,7 @@ def main():
     centroid2 = [50.0, 10.0]
     oldcent1 = [0,0]
     oldcent2 = [0,0]
+    depth = 60          #depth limited to stop countless inute iterations
     max1x = 0
     max1y = 0
     min1x = 100
@@ -41,7 +42,7 @@ def main():
                         line_count += 1            
                     else:                   
                         line = ','.join(row)
-                        print(f'line({line_count}) {line}')
+                        
                         plt.scatter(float(centroid1[0]), float(centroid1[1]), color="blue")
                         plt.scatter(float(centroid2[0]), float(centroid2[1]), color="blue")
                         a = line.split(',', 1)
@@ -49,9 +50,9 @@ def main():
                         e1 = euclid(centroid1, b)
                         e2 = euclid(centroid2, b)
                        
-                        
+                        print(f'line({line_count}) {b[0]} | {b[1]}')
                         if(e1 <= e2):
-                            print(f'{b} is closer to c1{centroid1}')
+                            print(f'{b} is closer to c1{centroid1} (e1,e2 {e1}   {e2})')
                             plt.scatter(b[0], b[1], color="red")
                             x_values = [b[0], centroid1[0]]
                             y_values = [b[1], centroid1[1]]
@@ -64,7 +65,7 @@ def main():
                                 max1x = b[0]
                                 max1y = b[1]
                             else:   
-                                print(f'{b} is closer to c2{centroid2}')
+                                
                                 if b[0] < min1x:
                                     min1x = b[0]
                                 elif b[1] < min1y:
@@ -76,7 +77,7 @@ def main():
                             #oldcentR = centroid1
                             
                         else:
-                            
+                            print(f'{b} is closer to c2{centroid2} (e1,e2 {e1}   {e2})')
                             plt.scatter(b[0], b[1], color="black")
                             x_values = [b[0], centroid2[0]]
                             y_values = [b[1], centroid2[1]]
@@ -116,8 +117,8 @@ def main():
                 else:
                     oldcent1 = centroid1
                     oldcent2 = centroid2
-                    centroid1 = [(max1x - min1x)/2, (max1y - min1y)/2]
-                    centroid2 = [(max2x + min2x)/2, (max2y - min2y)/2]
+                    centroid1 = [(max1x + min1x)/2, (max1y + min1y)/2]
+                    centroid2 = [(max2x + min2x)/2, (max2y + min2y)/2]
                 plt.pause(0.5)
                 if different != False:
                     plt.cla()
