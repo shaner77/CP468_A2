@@ -13,11 +13,15 @@ def main():
     centroid2 = [50.0, 10.0]
     oldcent1 = [0,0]
     oldcent2 = [0,0]
-    
-    mean1x = 0.0
-    mean1y = 0
-    mean2x = 0
-    mean2y = 0
+    depth = 60          #depth limited to stop countless inute iterations
+    max1x = 0
+    max1y = 0
+    min1x = 0
+    min1y = 0
+    max2x = 0
+    max2y = 0
+    min2x = 0
+    min2y = 0
     redcount = 0
     blkcount = 0
     different = True
@@ -63,8 +67,14 @@ def main():
                             plt.plot(x_values, y_values, color="red")
                             
                             redcount += 1
-                            mean1x += b[0]
-                            mean1y += b[1]
+                            if b[0] < min1x:
+                                min1x = b[0]
+                            elif b[1] < min1y:
+                                min1y = b[1]
+                            elif b[0] > max1x:
+                                max1x = b[0]
+                            elif b[1] > max2y:
+                                max2y = b[1]
                             #oldcentR = centroid1
                             
                         else:
@@ -75,9 +85,15 @@ def main():
                             plt.plot(x_values, y_values, color="black")
                             
                             blkcount += 1
-                            mean2x += b[0]
-                            mean2y += b[1]
-                            #oldcentB = centroid2
+                            if b[0] < min1x:
+                                min1x = b[0]
+                            elif b[1] < min1y:
+                                min1y = b[1]
+                            elif b[0] > max1x:
+                                max1x = b[0]
+                            elif b[1] > max2y:
+                                max2y = b[1]
+                                
                         line_count += 1
 
                     
@@ -97,15 +113,15 @@ def main():
                 print(f'old(x){oldcent1[0]} old(y){oldcent1[1]} | old2(x){oldcent2[0]} old2(y) {oldcent2[1]}')
                 print(f'curr(x){centroid1[0]} curr(y){centroid1[1]} | curr(x){centroid2[0]} curr(y) {centroid2[1]}')
                 if ((oldcent1[0] == centroid1[0]) and (oldcent1[1] == centroid1[1]) and (oldcent2[0] == centroid2[0]) and (oldcent2[1] == centroid2[1])):
-                    
                     different = False
                 else:
                     oldcent1 = centroid1
                     oldcent2 = centroid2
-                    centroid1 = [(mean1x / redcount), (mean1y / redcount)]
-                    centroid2 = [(mean2x / redcount), (mean2y / redcount)]
-                plt.pause(0.2)
-                plt.cla()
+                    centroid1 = [(max1x - min1x)/2, (max1y - min1y)/2]
+                    centroid2 = [(max2x - min2x)/2, (max2y - min2y)/2]
+                plt.pause(0.5)
+                if different != False:
+                    plt.cla()
         plt.ioff()
         plt.show()
         
