@@ -13,7 +13,6 @@ def main():
     centroid2 = [50.0, 10.0]
     oldcent1 = [0,0]
     oldcent2 = [0,0]
-    depth = 60          #depth limited to stop countless inute iterations
     max1x = 0
     max1y = 0
     min1x = 100
