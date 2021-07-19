@@ -1,11 +1,12 @@
 import csv 
 import matplotlib.pyplot as plt
 import math
+import random
 
 def main():
 
-    centroid1 = [20.0, 50.0]
-    centroid2 = [60.0, 10.0]
+    centroid1 = [random.uniform(0.0, 85.0), random.uniform(0.0, 85.0)]
+    centroid2 = [random.uniform(0.0, 85.0), random.uniform(0.0, 85.0)]
     
     oldcent1 = [0,0]
     oldcent2 = [0,0]
@@ -35,10 +36,11 @@ def main():
                 for row in csv_reader:
 
                     if line_count == 0:
+                        #print(f'Features: {"  ,  ".join(row)}')
                         line_count += 1            
-                    else:                   
+                    else:  
+                                      
                         line = ','.join(row)
-                        
                         plt.scatter(float(centroid1[0]), float(centroid1[1]), color="blue")
                         plt.scatter(float(centroid2[0]), float(centroid2[1]), color="blue")
                         plt.annotate('Centroid1', (float(centroid1[0]), float(centroid1[1])), color="blue")
@@ -49,6 +51,12 @@ def main():
                         e2 = euclid(centroid2, b)
 
                         if(e1 <= e2):
+                            if (redcount == 0):
+                                min1x = b[0]
+                                min1y = b[1]
+                                max1x = b[0]
+                                max1y = b[1] 
+                                   
                             plt.scatter(b[0], b[1], color="red")
                             x_values = [b[0], centroid1[0]]
                             y_values = [b[1], centroid1[1]]
@@ -72,6 +80,12 @@ def main():
                                     max1y = b[1]
                             
                         else:
+                            if (blkcount == 0):
+                                min2x = b[0]
+                                min2y = b[1]
+                                max2x = b[0]
+                                max2y = b[1]   
+                                
                             plt.scatter(b[0], b[1], color="black")
                             x_values = [b[0], centroid2[0]]
                             y_values = [b[1], centroid2[1]]
