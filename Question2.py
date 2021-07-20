@@ -4,7 +4,7 @@ import math
 import random
 
 def main():
-
+    ##initilizes new centroids and temp to track old centroids
     centroid1 = [random.uniform(0.0, 85.0), random.uniform(0.0, 85.0)]
     centroid2 = [random.uniform(0.0, 85.0), random.uniform(0.0, 85.0)]
     
@@ -34,12 +34,12 @@ def main():
                 line_count = 0
              
                 for row in csv_reader:
-
+                    #checks if there is a line for the next point
                     if line_count == 0:
                         #print(f'Features: {"  ,  ".join(row)}')
                         line_count += 1            
                     else:  
-                                      
+                        ##used to plot new scatterplot              
                         line = ','.join(row)
                         plt.scatter(float(centroid1[0]), float(centroid1[1]), color="blue")
                         plt.scatter(float(centroid2[0]), float(centroid2[1]), color="blue")
@@ -47,16 +47,17 @@ def main():
                         plt.annotate('Centroid2', (float(centroid2[0]), float(centroid2[1])), color="blue")
                         a = line.split(',', 1)
                         b = [float(a[0]), float(a[1])]
+                        ##initilizes euclidian dist
                         e1 = euclid(centroid1, b)
                         e2 = euclid(centroid2, b)
-
+                        ## check dist between diff points for lower dist
                         if(e1 <= e2):
                             if (redcount == 0):
                                 min1x = b[0]
                                 min1y = b[1]
                                 max1x = b[0]
                                 max1y = b[1] 
-                                   
+                            ##adds new to graph       
                             plt.scatter(b[0], b[1], color="red")
                             x_values = [b[0], centroid1[0]]
                             y_values = [b[1], centroid1[1]]
@@ -85,12 +86,12 @@ def main():
                                 min2y = b[1]
                                 max2x = b[0]
                                 max2y = b[1]   
-                                
+                            ##adds new black value based on new allocation    
                             plt.scatter(b[0], b[1], color="black")
                             x_values = [b[0], centroid2[0]]
                             y_values = [b[1], centroid2[1]]
                             plt.plot(x_values, y_values, color="black", linewidth=0.5)
-                            
+                            ## adds to count of black value and sets new mins based on them
                             blkcount += 1
                             if line_count == 1:
                                 min2x = b[0]
@@ -98,6 +99,7 @@ def main():
                                 max2x = b[0]
                                 max2y = b[1]
                             else:  
+                                ##sets min to b value if old min is higher
                                 if b[0] < min2x:
                                     min2x = b[0]
                                 elif b[1] < min2y:
@@ -118,6 +120,7 @@ def main():
                 if ((oldcent1[0] == centroid1[0]) and (oldcent1[1] == centroid1[1]) and (oldcent2[0] == centroid2[0]) and (oldcent2[1] == centroid2[1])):
                     different = False
                 else:
+                    ##changes centroids if they are not equal and creates new from the next points
                     oldcent1 = centroid1
                     oldcent2 = centroid2
                     centroid1 = [(max1x + min1x)/2, (max1y + min1y)/2]
@@ -126,6 +129,7 @@ def main():
                 if different != False:
                     plt.pause(0.5)
                     plt.cla()
+                   ##once there are no new values it can finish and show the result
                 else:
                     plt.pause(2)
                     plt.close('all')
