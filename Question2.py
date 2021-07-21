@@ -72,21 +72,16 @@ def main():
                             plt.plot(x_values, y_values, color="red", linewidth=0.5)
                             ##plots line connecting point to its nearest centroid
                             redcount += 1
-                            if line_count == 1:
+  
+                            ## check if the data point cooridantes are a new max or min in the cluster
+                            if b[0] < min1x:
                                 min1x = b[0]
+                            elif b[1] < min1y:
                                 min1y = b[1]
+                            elif b[0] > max1x:
                                 max1x = b[0]
+                            elif b[1] > max1y:
                                 max1y = b[1]
-                            else:   
-                                ## if its not the first point in the cluster, see if it is further away than current points
-                                if b[0] < min1x:
-                                    min1x = b[0]
-                                elif b[1] < min1y:
-                                    min1y = b[1]
-                                elif b[0] > max1x:
-                                    max1x = b[0]
-                                elif b[1] > max1y:
-                                    max1y = b[1]
                         
                         ## if closer to centroid2 then it will become part of blk cluster 
                         else:
@@ -103,21 +98,16 @@ def main():
                             plt.plot(x_values, y_values, color="black", linewidth=0.5)
                             ## plots lines connecting points to their centroid
                             blkcount += 1
-                            if line_count == 1:
+                            
+                            ## check if the data point cooridantes are a new max or min in the cluster
+                            if b[0] < min2x:
                                 min2x = b[0]
+                            elif b[1] < min2y:
                                 min2y = b[1]
+                            elif b[0] > max2x:
                                 max2x = b[0]
+                            elif b[1] > max2y:
                                 max2y = b[1]
-                            else:  
-                                ##sets min to b value if old min is higher
-                                if b[0] < min2x:
-                                    min2x = b[0]
-                                elif b[1] < min2y:
-                                    min2y = b[1]
-                                elif b[0] > max2x:
-                                    max2x = b[0]
-                                elif b[1] > max2y:
-                                    max2y = b[1]
                         ##iterate to keep track of the line in the file           
                         line_count += 1
 
